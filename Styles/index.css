@@ -1,0 +1,92 @@
+body {
+    background: url(https://images.unsplash.com/photo-1589405858862-2ac9cbb41321) no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: grid;
+    align-items: center;
+    height: 100vh;
+    backdrop-filter: blur(10px);
+    margin: 0 0;
+  }
+
+  .panel{
+    box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+    border-radius: 0px 0px 5px 5px;
+    height: 600px;
+    
+    overflow: hidden;
+    z-index: 100;
+    color:black;
+    background-color: #B0A8B9;
+  }
+
+  .navbar{
+      border-radius: 5px 5px 0px 0px;
+      background-color: #4B4453;
+  }
+
+  .btn-outline-info:hover{
+      color: black;
+  }
+
+  .column {
+    float: left;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+  .courses{
+      width: 70%;
+  }
+  .add-courses{
+      width: 30%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .row{
+    margin-right:0; 
+    margin-left: 0;
+  }
+
+  .add-courses >form> input {
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    background-color: rgba(56, 56, 56, 0.9);
+    border: none;
+    border-radius: 2px;
+    min-height: 2.5rem;
+    color: white;
+    font-size: 1.2em;
+    width: 250px;
+    margin-bottom: .5rem;
+  }
+
+  .add-courses >form> select {
+    margin-top: 0.5rem;
+    padding-left: 0.5rem;
+    background-color: rgba(56, 56, 56, 0.9);
+    border: none;
+    border-radius: 2px;
+    min-height: 2.5rem;
+    color: white;
+    font-size: 1.2em;
+    width: 250px;
+    margin-bottom: .5rem;
+  }
+
+  .add-courses > input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+  
+  .add-courses > input:focus {
+    background-color: rgba(112, 112, 112, 0.9);
+    outline: white;
+  }
+  
+  .add-courses > input:last-of-type {
+    margin-bottom: 3rem;
+  }
