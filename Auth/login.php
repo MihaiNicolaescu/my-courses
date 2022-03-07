@@ -37,7 +37,7 @@
             $_SESSION['userID'] = $userID;
             $conn->close();
             echo("Connected!");
-            header("location: ../pages/index.php");
+            header("location: ../index.php");
         }else echo "Invalid password";
     
     }else echo "Invalid email or password";

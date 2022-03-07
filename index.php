@@ -1,14 +1,11 @@
 <?php
-    include("../Database/connect.php");
-    include("../Models/course.php");
+    include("Database/connect.php");
+    include("Models/course.php");
     session_start();
-    if($_SESSION['isConnected'] != true) header("location: ../pages/login.html");
+    if($_SESSION['isConnected'] != true) header("location: pages/login.html");
 
-    $courses
-  
-
-
-
+    $userID = $_SESSION['userID'];
+    $todayName = $today = date("l");
 
 ?>
 <!DOCTYPE html>
@@ -17,54 +14,60 @@
         <title>MyCourses</title>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="../Styles/index.css">
+        <link rel="stylesheet" href="Styles/index.css">
     </head>
     <body>
         <div class="container">
             <nav class="navbar navbar-light">
-                    <p style="color:white;">Hello <?php echo $_SESSION['fName'] ?>, let's see what courses do you have today</p>
-                    <form method="POST" action="../Auth/logout.php">
+                    <p style="color:white; font-size: 20px;">Hello <?php echo $_SESSION['fName'] ?>, let's see what courses do you have today🤠!</p>
+                    <form method="POST" action="Auth/logout.php">
                         <button style="float: right;" class="btn btn-outline-info my-3 my-sm-0" type="submit">Logout</button>
                     </form>                
             </nav>
             <div class="row panel container">
                 <div class="column courses side">
                     <h2>Today courses</h2>
-
+                    <?php
+                          
+                      $sql = "SELECT * FROM courses WHERE userID = '$userID' AND day = '$todayName'";
+                      $result = $conn ->query($sql);
+                      $count = 1;
+                      if($result ->num_rows > 0){
+                    ?>
                     <table class="table table-striped table-dark">
                         <thead>
                           <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Course</th>
+                            <th scope="col">Prof.</th>
+                            <th scope="col">Hour</th>
+                            <th scope="col">Duration</th>
+                            <th scope="col">Type</th>
                           </tr>
                         </thead>
+                        
                         <tbody>
                           <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <?php
+                              while($row = $result->fetch_assoc()){
+                            ?>
+                            <th scope="row"><?php echo($count); $count++; ?></th>
+                            <td><?php echo($row['name']); ?></td>
+                            <td><?php echo($row['professor']); ?></td>
+                            <td><?php echo(substr($row['begin_hour'], 0,-3)); ?></td>
+                            <td><?php echo($row['time'] . " hours"); ?></td>
+                            <td><?php echo($row['type']); ?></td>
                           </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
+                          <?php }
+                          }else{
+                            echo("<p class='no-courses'>Chill out🤖! Today you don't have any coruses!🦾👨‍💻🍻</p>");  
+                          }?>
                         </tbody>
                       </table>
                 </div>
                 <div class="column add-courses side">
                     <h2>Add courses</h2>
-                    <form method="POST" action="../Controllers/addCourse.php">
+                    <form method="POST" action="Controllers/addCourse.php">
                         <input id="cName" name="cName" type="text" placeholder="Course name">
                         <input id="cProfessor" name="cProfessor" type="text" placeholder="Professor name">
                         <select id="cType" name="cType" class="custom-select" id="inputGroupSelect01">
@@ -73,13 +76,13 @@
                             <option value="Seminar">Seminar</option>
                         </select>
                         <select id="cDay" name="cDay" class="custom-select" id="inputGroupSelect01">
-                            <option value="Luni" selected>Luni</option>
-                            <option value="Marti">Marti</option>
-                            <option value="Miercuri">Miercuri</option>
-                            <option value="Joi">Joi</option>
-                            <option value="Vineri">Vineri</option>
-                            <option value="Sambata">Sambata</option>
-                            <option value="Duminica">Duminica</option>
+                            <option value="Monday" selected>Monday</option>
+                            <option value="Tuesday">Tuesday</option>
+                            <option value="Wednesday">Wednesday</option>
+                            <option value="Thursday">Thursday</option>
+                            <option value="Friday">Friday</option>
+                            <option value="Saturday">Saturday</option>
+                            <option value="Sunday">Sunday</option>
                         </select>
                         <input id="cStart_hour" name="cStart_hour" style="width: 150px !important;" type="time" placeholder="Begin time">
                         <input id="cDuration" name="cDuration" style="width: 100px !important;" type="number" placeholder="Duration">

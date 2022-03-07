@@ -65,6 +65,8 @@ body {
     margin-bottom: .5rem;
   }
 
+  
+
   .add-courses >form> select {
     margin-top: 0.5rem;
     padding-left: 0.5rem;
@@ -77,9 +79,15 @@ body {
     width: 250px;
     margin-bottom: .5rem;
   }
+  .no-courses{
+    text-align: center;
+    padding: 20%;
+    font-size: 30px;
+  }
 
-  .add-courses > input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+  input::placeholder{
+    color: white;
+    opacity: .9;
   }
   
   .add-courses > input:focus {
