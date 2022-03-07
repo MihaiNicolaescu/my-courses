@@ -26,7 +26,7 @@
             </nav>
             <div class="row panel container">
                 <div class="column courses side">
-                    <h2>Today courses</h2>
+                    <h2><?php echo($todayName); ?> courses</h2>
                     <?php
                           
                       $sql = "SELECT * FROM courses WHERE userID = '$userID' AND day = '$todayName'";
